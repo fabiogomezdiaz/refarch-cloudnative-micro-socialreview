@@ -1,4 +1,5 @@
-FROM java:8
+FROM registry.ng.bluemix.net/ibmliberty:latest
+
 VOLUME /tmp
 ADD app.jar app.jar
 RUN bash -c 'touch /app.jar'

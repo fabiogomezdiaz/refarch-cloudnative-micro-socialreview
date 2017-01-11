@@ -97,11 +97,11 @@ You can close the console now.
 - Build the docker image:
 
     `$ cd docker`  
-    `$ docker build -t cloudnative/socialreviewservice .`
+    `$ docker build -t cloudnative/socialreviewservice-liberty .`
 
 - Run the local docker image
 
-    `$ docker run -d -p 8080:8080 --name socialreview cloudnative/socialreviewservice`
+    `$ docker run -d -p 8080:8080 --name socialreview-liberty cloudnative/socialreviewservice-liberty`
 
     You can check your docker instance with command:  
     `docker ps`  
@@ -123,8 +123,8 @@ You can close the console now.
 
      `$ cf login`  
      `$ cf ic login`  
-     `$ docker tag cloudnative/socialreviewservice registry.ng.bluemix.net/$(cf ic namespace get)/socialreviewservice`  
-     `$ docker push registry.ng.bluemix.net/$(cf ic namespace get)/socialreviewservice`  
+     `$ docker tag cloudnative/socialreviewservice-liberty registry.ng.bluemix.net/$(cf ic namespace get)/socialreviewservice-liberty`  
+     `$ docker push registry.ng.bluemix.net/$(cf ic namespace get)/socialreviewservice-liberty`  
 
      "$(cf ic namespace get)" will get your Bluemix private registry namespace. If you don't have one, create with following command:
 
@@ -136,7 +136,7 @@ You can close the console now.
 
      Bluemix container group is a scalable Docker container runtime where auto-recovery and auto-scaling service are provided. Use the following command to create the container group for the microservice:  
 
-     `cf ic group create -p 8080  -m 128 --min 1 --auto --name micro-socialreview-group -e eureka.client.fetchRegistry=true -e eureka.client.registerWithEureka=true -e eureka.client.serviceUrl.defaultZone=http://netflix-eureka-$(cf ic namespace get).mybluemix.net/eureka/ -n socialreviewservice -d mybluemix.net registry.ng.bluemix.net/$(cf ic namespace get)/socialreviewservice`
+     `cf ic group create -p 8080  -m 128 --min 1 --auto --name micro-socialreview-liberty-group -e eureka.client.fetchRegistry=true -e eureka.client.registerWithEureka=true -e eureka.client.serviceUrl.defaultZone=http://netflix-eureka-$(cf ic namespace get).mybluemix.net/eureka/ -n socialreviewservice-liberty -d mybluemix.net registry.ng.bluemix.net/$(cf ic namespace get)/socialreviewservice-liberty`
 
      You can view your container instance with following command:  
      `cf ic ps`
@@ -147,8 +147,8 @@ You can close the console now.
 
    Open your browser to the URL matches your Container group route:
 
-   [http://socialreviewservice.mybluemix.net/micro/review](http://socialreviewservice.mybluemix.net/micro/review)
+   [http://socialreviewservice-liberty.mybluemix.net/micro/review](http://socialreviewservice-liberty.mybluemix.net/micro/review)
 
  - Unmap public route
 
-    `cf ic route unmap -n socialreviewservice -d mybluemix.net micro-socialreview-group`
+    `cf ic route unmap -n socialreviewservice-liberty -d mybluemix.net micro-socialreview-liberty-group`
